@@ -16,10 +16,11 @@ setze "zzX zz 26
 setze "zzXGA :zzX * 10 - 130
 setze "zzY zz 26
 setze "zzYGA :zzX * 10 - 130
-setze "Zähler 0
+setze "ZÃ¤hler 0
 setze "CheckWert 0
 setze "CCounter 0
 setze "Wartezeit 5
+setze "LÃ¤nge 1
 spielfeld
 giftapfel
 ende
@@ -44,7 +45,7 @@ if :xKoordinate = :xx9 [if :yKoordinate = :yy9  [bild setze "CheckWert :CheckWer
 ende
 
 pr falschesgehen
-wenn :Zähler > 40 [
+wenn :ZÃ¤hler > 40 [
 setfloodcolor [255 255 255]
 pu aufxy 280 220
 bb 20 20
@@ -67,11 +68,11 @@ wenn :xKoordinate < -240 [bild setze "xKoordinate 0 setze "yKoordinate 0 spielfe
 wenn :yKoordinate > 240 [bild setze "yKoordinate 0 setze "xKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel ]
 wenn :yKoordinate < -240 [bild setze "yKoordinate 0 setze "xKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel ]
 
-wenn :xKoordinate = :zzXGA [ wenn :YKoordinate = :zzYGA [setze "Zähler 0 setze "CCounter :CCounter + 100 (druckezeile "Punkte: :CCounter) 
+wenn :xKoordinate = :zzXGA [ wenn :YKoordinate = :zzYGA [setze "LÃ¤nge :LÃ¤nge + 0.2 setze "ZÃ¤hler 0 setze "CCounter :CCounter + 100 (druckezeile "Punkte: :CCounter) 
 setze "Wartezeit :Wartezeit - 0.1 SOUND [1000 200] giftapfel falschesgehen]]
-wait 1
+wait :LÃ¤nge
 check2
-setze "Zähler :Zähler + 1
+setze "ZÃ¤hler :ZÃ¤hler + 1
 falschesgehen
 ende
 
@@ -264,15 +265,15 @@ ende
 
 pr tasten
 
-setze "Zähler 0
+setze "ZÃ¤hler 0
 
-wenn :FehlerCounter >= 1 [bild re 90 igeltext [Das war´s] 
+wenn :FehlerCounter >= 1 [ bild re 90 igeltext [Das warÂ´s] 
 wh 10 [(druckezeile ")]
 (druckezeile "Um "nochmal "zu "spielen ""start" "eingeben)
  (druckezeile "Dein "Score "war :CCounter)
  li 90 sound [1250 400] sound [1000 400] sound [700 400] sound[500 600] rk]
 
-wenn :CheckWert >= 1 [bild re 90 igeltext [Das war´s] 
+wenn :CheckWert >= 1 [ bild re 90 igeltext [Das warÂ´s] 
 wh 10 [(druckezeile ")]
 (druckezeile "Um "nochmal "zu "spielen ""start" "eingeben)
  (druckezeile "Dein "Score "war :CCounter)
@@ -287,60 +288,10 @@ wenn :xKoordinate < -240 [bild setze "xKoordinate 0 setze "yKoordinate 0 spielfe
 wenn :yKoordinate > 240 [bild setze "yKoordinate 0 setze "xKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel]
 wenn :yKoordinate < -240 [bild setze "yKoordinate 0 setze "xKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel]
 
-wenn :xKoordinate = :zzXGA [ wenn :YKoordinate = :zzYGA [setze "CCounter :CCounter + 100 (druckezeile "Punkte: :CCounter) 
-setze "Wartezeit :Wartezeit - 0.1 SOUND [1000 200] giftapfel falschesgehen]]
+wenn :xKoordinate = :zzXGA [ wenn :YKoordinate = :zzYGA [SOUND [1000 200]setze "LÃ¤nge :LÃ¤nge + 0.2 setze "CCounter :CCounter + 100 (druckezeile "Punkte: :CCounter) 
+setze "Wartezeit :Wartezeit - 0.1 giftapfel falschesgehen]]
 check2
 wait 1
 
 tasten
 ende
-
-setze "ccounter 100
-setze "checkwert 0
-setze "fehlercounter 1
-setze "letztetaste 2
-setze "wartezeit 4.9
-setze "x 4
-setze "x1 440
-setze "x2 420
-setze "x3 410
-setze "x4 360
-setze "x5 290
-setze "x6 310
-setze "x7 210
-setze "x8 240
-setze "x9 430
-setze "xkoordinate 0
-setze "xx1 190
-setze "xx2 170
-setze "xx3 160
-setze "xx4 110
-setze "xx5 40
-setze "xx6 60
-setze "xx7 -40
-setze "xx8 -10
-setze "xx9 180
-setze "y1 370
-setze "y2 140
-setze "y3 410
-setze "y4 450
-setze "y5 310
-setze "y6 370
-setze "y7 310
-setze "y8 80
-setze "y9 300
-setze "ykoordinate 0
-setze "yy1 120
-setze "yy2 -110
-setze "yy3 160
-setze "yy4 200
-setze "yy5 60
-setze "yy6 120
-setze "yy7 60
-setze "yy8 -170
-setze "yy9 50
-setze "zzx 18
-setze "zzxga 50
-setze "zzy 1
-setze "zzyga -120
-setze "zähler 0
