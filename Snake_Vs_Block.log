@@ -1,0 +1,346 @@
+pr abbau
+keyboardoff
+st
+ende
+
+pr aufbau
+bild
+ht
+keyboardon []
+setfocus [FMSLogo]
+setze "letzteTaste 1
+setze "xKoordinate 0
+setze "yKoordinate 0
+setze "Fehlercounter 0
+setze "zzX zz 26
+setze "zzXGA :zzX * 10 - 130
+setze "zzY zz 26
+setze "zzYGA :zzX * 10 - 130
+setze "Zähler 0
+setze "CheckWert 0
+setze "CCounter 0
+setze "Wartezeit 5
+spielfeld
+giftapfel
+ende
+
+pr bewegen :x
+wenn :x = 1[setfloodcolor [0 0 0] pu vw 10 pd bb 10 10 pu rw 10 setfloodcolor [255 255 255] pd bb 10 10 pu vw 10 pd setfloodcolor [0 255 0] wait 3 setze "letzteTaste 1 setze "yKoordinate :yKoordinate + 10 ]
+wenn :x = 2[setfloodcolor [0 0 0] pu li 90 vw 10 re 90 pd bb 10 10 pu re 90 vw 10 li 90 setfloodcolor [255 255 255] pd bb 10 10 pu li 90 vw 10 re 90 setfloodcolor [0 255 0] wait 3 setze "letzteTaste 2 setze "xKoordinate :xKoordinate - 10 ]
+wenn :x = 3[setfloodcolor [0 0 0] pu rw 10 pd bb 10 10 pu vw 10 setfloodcolor [255 255 255] pd bb 10 10 pu rw 10 pd setfloodcolor [0 255 0] wait 3 setze "letzteTaste 3 setze "yKoordinate :yKoordinate - 10 ]
+wenn :x = 4[setfloodcolor [0 0 0] pu re 90 vw 10 li 90 pd bb 10 10 pu li 90 vw 10 re 90 setfloodcolor [255 255 255] pd bb 10 10 pu re 90 vw 10 li 90 setfloodcolor [0 255 0]wait 3 setze "letzteTaste 4 setze "xKoordinate :xKoordinate + 10 ]
+ende
+
+pr check2
+if :xKoordinate = :xx1 [if :yKoordinate = :yy1  [bild setze "CheckWert :CheckWert + 1]]
+if :xKoordinate = :xx2 [if :yKoordinate = :yy2  [bild setze "CheckWert :CheckWert +1]]
+if :xKoordinate = :xx3 [if :yKoordinate = :yy3  [bild setze "CheckWert :CheckWert +1]]
+if :xKoordinate = :xx4 [if :yKoordinate = :yy4  [bild setze "CheckWert :CheckWert +1]]
+if :xKoordinate = :xx5 [if :yKoordinate = :yy5  [bild setze "CheckWert :CheckWert +1]]
+if :xKoordinate = :xx6 [if :yKoordinate = :yy6  [bild setze "CheckWert :CheckWert +1]]
+if :xKoordinate = :xx7 [if :yKoordinate = :yy7  [bild setze "CheckWert :CheckWert +1]]
+if :xKoordinate = :xx8 [if :yKoordinate = :yy8  [bild setze "CheckWert :CheckWert +1]]
+if :xKoordinate = :xx9 [if :yKoordinate = :yy9  [bild setze "CheckWert :CheckWert +1]]
+ende
+
+pr falschesgehen
+wenn :Zähler > 40 [
+setfloodcolor [255 255 255]
+pu aufxy 280 220
+bb 20 20
+aufxy :xKoordinate :yKoordinate
+setfloodcolor [0 255 0]
+tasten rk]
+wenn :FehlerCounter >= 1 [rk]
+wenn :CheckWert >= 1 [rk]
+setfloodcolor [255 0 0]
+pu aufxy 280 220
+bb 20 20
+aufxy :xKoordinate :yKoordinate
+setfloodcolor [0 255 0]
+wenn 119 = keyboardvalue [wenn :letzteTaste = 1 [Lbewegen 1] if not :letzteTaste = 1 [Lbewegen 3]]
+wenn 97 = keyboardvalue [wenn :letzteTaste = 2 [Lbewegen 2] if not :letzteTaste = 2 [Lbewegen 4]]
+wenn 115 = keyboardvalue [wenn :letzteTaste = 3 [Lbewegen 3] if not :letzteTaste = 3 [Lbewegen 1]]
+wenn 100 = keyboardvalue [wenn :letzteTaste = 4 [Lbewegen 4] if not :letzteTaste = 4 [Lbewegen 2]]
+wenn :xKoordinate > 240 [bild setze "xKoordinate 0 setze "yKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel ]
+wenn :xKoordinate < -240 [bild setze "xKoordinate 0 setze "yKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel ]
+wenn :yKoordinate > 240 [bild setze "yKoordinate 0 setze "xKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel ]
+wenn :yKoordinate < -240 [bild setze "yKoordinate 0 setze "xKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel ]
+
+wenn :xKoordinate = :zzXGA [ wenn :YKoordinate = :zzYGA [setze "Zähler 0 setze "CCounter :CCounter + 100 (druckezeile "Punkte: :CCounter) 
+setze "Wartezeit :Wartezeit - 0.1 SOUND [1000 200] giftapfel falschesgehen]]
+wait 1
+check2
+setze "Zähler :Zähler + 1
+falschesgehen
+ende
+
+pr giftapfel
+setze "zzX zz 26
+setze "zzXGA :zzX * 10 - 130
+setze "zzY zz 26
+setze "zzYGA :zzY * 10 - 130
+
+pu
+aufxy :zzXGA :zzYGA
+setfloodcolor [255 255 0]
+bb 10 10
+setfloodcolor [0 0 0]
+aufxy :xKoordinate :yKoordinate
+pd
+ende
+
+pr hindernis1 :q :r
+setze "x1 zz 50 setze "x1 :x1*10
+setze "xx1 :x1-250
+setze "y1 zz 50 setze "y1 :y1*10
+setze "yy1 :y1-250
+pu AUFXY :xx1 :yy1 pd
+setfloodcolor [0 0 0]
+bb :q :r
+ende
+
+pr hindernis2 :q :r
+setze "x2 zz 50 setze "x2 :x2*10
+setze "xx2 :x2-250
+setze "y2 zz 50 setze "y2 :y2*10
+setze "yy2 :y2-250
+wenn :xx2 = :xx1 [wenn :yy2 = :yy1 [hindernis 2]]
+pu AUFXY :xx2 :yy2 pd
+setfloodcolor [0 0 0]
+bb :q :r
+ende
+
+pr hindernis3 :q :r
+setze "x3 zz 50 setze "x3 :x3*10
+setze "xx3 :x3-250
+setze "y3 zz 50 setze "y3 :y3*10
+setze "yy3 :y3-250
+wenn :xx3 = :xx1 [wenn :yy3 = :yy1 [hindernis 3]]
+wenn :xx3 = :xx2 [wenn :yy3 = :yy2 [hindernis 3]]
+pu AUFXY :xx3 :yy3 pd
+setfloodcolor [0 0 0]
+bb :q :r
+ende
+
+pr hindernis4 :q :r
+setze "x4 zz 50 setze "x4 :x4*10
+setze "xx4 :x4-250
+setze "y4 zz 50 setze "y4 :y4*10
+setze "yy4 :y4-250
+wenn :xx4 = :xx1 [wenn :yy4 = :yy1 [hindernis 3]]
+wenn :xx4 = :xx2 [wenn :yy4 = :yy2 [hindernis 3]]
+wenn :xx4 = :xx3 [wenn :yy4 = :yy3 [hindernis 3]]
+pu AUFXY :xx3 :yy3 pd
+setfloodcolor [0 0 0]
+bb :q :r
+ende
+
+pr hindernis5 :q :r
+setze "x5 zz 50 setze "x5 :x5*10
+setze "xx5 :x5-250
+setze "y5 zz 50 setze "y5 :y5*10
+setze "yy5 :y5-250
+wenn :xx5 = :xx1 [wenn :yy5 = :yy1 [hindernis 5]]
+wenn :xx5 = :xx2 [wenn :yy5 = :yy2 [hindernis 5]]
+wenn :xx5 = :xx3 [wenn :yy5 = :yy3 [hindernis 5]]
+wenn :xx5 = :xx4 [wenn :yy5 = :yy4 [hindernis 5]]
+pu AUFXY :xx5 :yy5 pd
+setfloodcolor [0 0 0]
+bb :q :r
+ende
+
+pr hindernis6 :q :r
+setze "x6 zz 50 setze "x6 :x6*10
+setze "xx6 :x6-250
+setze "y6 zz 50 setze "y6 :y6*10
+setze "yy6 :y6-250
+wenn :xx6 = :xx1 [wenn :yy6 = :yy1 [hindernis 6]]
+wenn :xx6 = :xx2 [wenn :yy6 = :yy2 [hindernis 6]]
+wenn :xx6 = :xx3 [wenn :yy6 = :yy3 [hindernis 6]]
+wenn :xx6 = :xx4 [wenn :yy6 = :yy4 [hindernis 6]]
+wenn :xx6 = :xx5 [wenn :yy6 = :yy5 [hindernis 6]]
+pu AUFXY :xx6 :yy6 pd
+setfloodcolor [0 0 0]
+bb :q :r
+ende
+
+pr hindernis7 :q :r
+setze "x7 zz 50 setze "x7 :x7*10
+setze "xx7 :x7-250
+setze "y7 zz 50 setze "y7 :y7*10
+setze "yy7 :y7-250
+wenn :xx7 = :xx1 [wenn :yy7 = :yy1 [hindernis 7]]
+wenn :xx7 = :xx2 [wenn :yy7 = :yy2 [hindernis 7]]
+wenn :xx7 = :xx3 [wenn :yy7 = :yy3 [hindernis 7]]
+wenn :xx7 = :xx4 [wenn :yy7 = :yy4 [hindernis 7]]
+wenn :xx7 = :xx5 [wenn :yy7 = :yy5 [hindernis 7]]
+wenn :xx7 = :xx6 [wenn :yy7 = :yy6 [hindernis 7]]
+pu AUFXY :xx7 :yy7 pd
+setfloodcolor [0 0 0]
+bb :q :r
+ende
+
+pr hindernis8 :q :r
+setze "x8 zz 50 setze "x8 :x8*10
+setze "xx8 :x8-250
+setze "y8 zz 50 setze "y8 :y8*10
+setze "yy8 :y8-250
+wenn :xx8 = :xx1 [wenn :yy8 = :yy1 [hindernis 8]]
+wenn :xx8 = :xx2 [wenn :yy8 = :yy2 [hindernis 8]]
+wenn :xx8 = :xx3 [wenn :yy8 = :yy3 [hindernis 8]]
+wenn :xx8 = :xx4 [wenn :yy8 = :yy4 [hindernis 8]]
+wenn :xx8 = :xx5 [wenn :yy8 = :yy5 [hindernis 8]]
+wenn :xx8 = :xx6 [wenn :yy8 = :yy6 [hindernis 8]]
+wenn :xx8 = :xx7 [wenn :yy8 = :yy7 [hindernis 8]]
+pu AUFXY :xx8 :yy8 pd
+setfloodcolor [0 0 0]
+bb :q :r
+ende
+
+pr hindernis9 :q :r
+setze "x9 zz 50 setze "x9 :x9*10
+setze "xx9 :x9-250
+setze "y9 zz 50 setze "y9 :y9*10
+setze "yy9 :y9-250
+wenn :xx9 = :xx1 [wenn :yy9 = :yy1 [hindernis 9]]
+wenn :xx9 = :xx2 [wenn :yy9 = :yy2 [hindernis 9]]
+wenn :xx9 = :xx3 [wenn :yy9 = :yy3 [hindernis 9]]
+wenn :xx9 = :xx4 [wenn :yy9 = :yy4 [hindernis 9]]
+wenn :xx9 = :xx5 [wenn :yy9 = :yy5 [hindernis 9]]
+wenn :xx9 = :xx6 [wenn :yy9 = :yy6 [hindernis 9]]
+wenn :xx9 = :xx7 [wenn :yy9 = :yy7 [hindernis 9]]
+wenn :xx9 = :xx8 [wenn :yy9 = :yy8 [hindernis 9]]
+pu AUFXY :xx9 :yy9 pd
+setfloodcolor [0 0 0]
+bb :q :r
+pu AUFXY 0 0 pd
+ende
+
+pr hindernisse
+hindernis1 10 10
+hindernis2 10 10
+hindernis3 10 10
+hindernis4 10 10
+hindernis5 10 10
+hindernis6 10 10
+hindernis7 10 10
+hindernis8 10 10
+hindernis9 10 10
+ende
+
+pr Lbewegen :x
+wenn :x = 1[setfloodcolor [0 0 0] pu vw 10 pd bb 10 10 pu rw 10 setfloodcolor [255 255 255] pd bb 10 10 pu vw 10 pd setfloodcolor [0 255 0] wait :Wartezeit setze "letzteTaste 1 setze "yKoordinate :yKoordinate + 10 ]
+wenn :x = 2[setfloodcolor [0 0 0] pu li 90 vw 10 re 90 pd bb 10 10 pu re 90 vw 10 li 90 setfloodcolor [255 255 255] pd bb 10 10 pu li 90 vw 10 re 90 setfloodcolor [0 255 0] wait  :Wartezeit setze "letzteTaste 2 setze "xKoordinate :xKoordinate - 10 ]
+wenn :x = 3[setfloodcolor [0 0 0] pu rw 10 pd bb 10 10 pu vw 10 setfloodcolor [255 255 255] pd bb 10 10 pu rw 10 pd setfloodcolor [0 255 0] wait :Wartezeit setze "letzteTaste 3 setze "yKoordinate :yKoordinate - 10 ]
+wenn :x = 4[setfloodcolor [0 0 0] pu re 90 vw 10 li 90 pd bb 10 10 pu li 90 vw 10 re 90 setfloodcolor [255 255 255] pd bb 10 10 pu re 90 vw 10 li 90 setfloodcolor [0 255 0]wait :Wartezeit setze "letzteTaste 4 setze "xKoordinate :xKoordinate + 10 ]
+ende
+
+pr spielfeld
+pu vw 250
+li 90 vw 250
+re 180 pd
+vw 500
+re 90 vw 500
+re 90 vw 500
+re 90 vw 500
+pu re 90
+vw 250
+li 90 rw 250
+pd
+setfloodcolor [255 255 255]
+pu aufxy 280 220
+bb 20 20
+home
+setfloodcolor [0 255 0]
+ende
+
+pr start
+aufbau
+hindernisse
+tasten
+abbau
+ende
+
+pr tasten
+
+setze "Zähler 0
+
+wenn :FehlerCounter >= 1 [bild re 90 igeltext [Das war´s] 
+wh 10 [(druckezeile ")]
+(druckezeile "Um "nochmal "zu "spielen ""start" "eingeben)
+ (druckezeile "Dein "Score "war :CCounter)
+ li 90 sound [1250 400] sound [1000 400] sound [700 400] sound[500 600] rk]
+
+wenn :CheckWert >= 1 [bild re 90 igeltext [Das war´s] 
+wh 10 [(druckezeile ")]
+(druckezeile "Um "nochmal "zu "spielen ""start" "eingeben)
+ (druckezeile "Dein "Score "war :CCounter)
+li 90 sound [1250 400] sound [1000 400] sound [700 400] sound[500 600] rk]
+
+wenn 119 = keyboardvalue [wenn :letzteTaste = 3 [bewegen 3] if not :letzteTaste = 3 [bewegen 1]]
+wenn 97 = keyboardvalue [wenn :letzteTaste = 4 [bewegen 4] if not :letzteTaste = 4 [bewegen 2]]
+wenn 115 = keyboardvalue [wenn :letzteTaste = 1 [bewegen 1] if not :letzteTaste = 1 [bewegen 3]]
+wenn 100 = keyboardvalue [wenn :letzteTaste = 2 [bewegen 2] if not :letzteTaste = 2 [bewegen 4]]
+wenn :xKoordinate > 240 [bild setze "xKoordinate 0 setze "yKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel]
+wenn :xKoordinate < -240 [bild setze "xKoordinate 0 setze "yKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel]
+wenn :yKoordinate > 240 [bild setze "yKoordinate 0 setze "xKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel]
+wenn :yKoordinate < -240 [bild setze "yKoordinate 0 setze "xKoordinate 0 spielfeld setze "FehlerCounter :FehlerCounter + 1 giftapfel]
+
+wenn :xKoordinate = :zzXGA [ wenn :YKoordinate = :zzYGA [setze "CCounter :CCounter + 100 (druckezeile "Punkte: :CCounter) 
+setze "Wartezeit :Wartezeit - 0.1 SOUND [1000 200] giftapfel falschesgehen]]
+check2
+wait 1
+
+tasten
+ende
+
+setze "ccounter 100
+setze "checkwert 0
+setze "fehlercounter 1
+setze "letztetaste 2
+setze "wartezeit 4.9
+setze "x 4
+setze "x1 440
+setze "x2 420
+setze "x3 410
+setze "x4 360
+setze "x5 290
+setze "x6 310
+setze "x7 210
+setze "x8 240
+setze "x9 430
+setze "xkoordinate 0
+setze "xx1 190
+setze "xx2 170
+setze "xx3 160
+setze "xx4 110
+setze "xx5 40
+setze "xx6 60
+setze "xx7 -40
+setze "xx8 -10
+setze "xx9 180
+setze "y1 370
+setze "y2 140
+setze "y3 410
+setze "y4 450
+setze "y5 310
+setze "y6 370
+setze "y7 310
+setze "y8 80
+setze "y9 300
+setze "ykoordinate 0
+setze "yy1 120
+setze "yy2 -110
+setze "yy3 160
+setze "yy4 200
+setze "yy5 60
+setze "yy6 120
+setze "yy7 60
+setze "yy8 -170
+setze "yy9 50
+setze "zzx 18
+setze "zzxga 50
+setze "zzy 1
+setze "zzyga -120
+setze "zähler 0
